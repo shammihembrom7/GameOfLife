@@ -6,6 +6,8 @@ namespace GameOfLife
 {
     public class CellEvaluations
     {
+        Vector2[] offset_list = { Vector2.UnitY, Vector2.UnitX, -Vector2.UnitY, -Vector2.UnitX, Vector2.One, (Vector2.UnitX - Vector2.UnitY), (-Vector2.One), (Vector2.UnitY - Vector2.UnitX) };
+        // Directions in order (north, east, south, west, north_east, south_east, south_west, north_west)
         public void CheckForAdjacentDeadCells(List<Cell> alive_cells, List<Cell> dead_cells)
         {
             dead_cells.Clear();
@@ -13,58 +15,16 @@ namespace GameOfLife
             bool already_exist;
             foreach (Cell cell in alive_cells)
             {
-                //north
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitY, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitY, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitY, dead_cells);
+                foreach(Vector2 direction_offset in offset_list)
+                {
+                    already_exist = false;
+                    already_exist = CheckCellsInDirection(cell, Vector2.UnitY, dead_cells);
+                    if (!already_exist) already_exist = CheckCellsInDirection(cell, direction_offset, alive_cells);
 
-
-                //east
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitX, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitX, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitX, dead_cells);
-
-                //south
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.UnitY, dead_cells);
-
-                //west
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.UnitX, dead_cells);
-
-                //north_east
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, Vector2.One, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.One, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.One, dead_cells);
-
-                //south_east
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitX - Vector2.UnitY, dead_cells);
-
-                //south_west
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, -Vector2.One, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, -Vector2.One, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.One, dead_cells);
-
-                //north_west
-                already_exist = false;
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, dead_cells);
-                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, alive_cells);
-                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitY - Vector2.UnitX, dead_cells);
+                    if (!already_exist) AddCorrespondingDeadCell(cell, direction_offset, dead_cells);
+                }
             }
-
         }
-
 
         public void EvaluateNextGenCells(List<Cell> alive_cells, List<Cell> dead_cells)
         {

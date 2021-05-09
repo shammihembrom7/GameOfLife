@@ -16,50 +16,50 @@ namespace GameOfLife
                 //north
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, Vector2.UnitY, dead_cells);
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitY, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitY, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitY, dead_cells);
 
 
                 //east
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, Vector2.UnitX, dead_cells);
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitX, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitX, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitX, dead_cells);
 
                 //south
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, dead_cells);
-                already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.UnitY, dead_cells);
 
                 //west
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, dead_cells);
-                already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.UnitX, dead_cells);
 
                 //north_east
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, Vector2.One, dead_cells);
-                already_exist = CheckCellsInDirection(cell, Vector2.One, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.One, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.One, dead_cells);
 
                 //south_east
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, dead_cells);
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitX - Vector2.UnitY, dead_cells);
 
                 //south_west
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, -Vector2.One, dead_cells);
-                already_exist = CheckCellsInDirection(cell, -Vector2.One, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, -Vector2.One, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.One, dead_cells);
 
                 //north_west
                 already_exist = false;
                 already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, dead_cells);
-                already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, alive_cells);
+                if (!already_exist) already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, alive_cells);
                 if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitY - Vector2.UnitX, dead_cells);
             }
 
@@ -89,6 +89,7 @@ namespace GameOfLife
             foreach (Cell cell_obj in list_cells)
             {
                 if (cell_obj.coords == cell.coords + offset) match_found = true;
+                if(match_found) return true;
             }
 
             return match_found;

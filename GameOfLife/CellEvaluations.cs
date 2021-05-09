@@ -9,150 +9,62 @@ namespace GameOfLife
         public void CheckForAdjacentDeadCells(List<Cell> alive_cells, List<Cell> dead_cells)
         {
             dead_cells.Clear();
+
             bool already_exist;
             foreach (Cell cell in alive_cells)
             {
                 //north
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_north = new Cell();
-                    dead_north.coords = cell.coords + Vector2.UnitY;
-                    dead_cells.Add(dead_north);
-                }
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitY, dead_cells);
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitY, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitY, dead_cells);
 
 
                 //east
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_east = new Cell();
-                    dead_east.coords = cell.coords + Vector2.UnitX;
-                    dead_cells.Add(dead_east);
-                }
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitX, dead_cells);
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitX, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitX, dead_cells);
 
                 //south
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_south = new Cell();
-                    dead_south.coords = cell.coords - Vector2.UnitY;
-                    dead_cells.Add(dead_south);
-                }
-
+                already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, dead_cells);
+                already_exist = CheckCellsInDirection(cell, -Vector2.UnitY, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.UnitY, dead_cells);
 
                 //west
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_west = new Cell();
-                    dead_west.coords = cell.coords - Vector2.UnitX;
-                    dead_cells.Add(dead_west);
-                }
-
+                already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, dead_cells);
+                already_exist = CheckCellsInDirection(cell, -Vector2.UnitX, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.UnitX, dead_cells);
 
                 //north_east
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.One) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.One) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_north_east = new Cell();
-                    dead_north_east.coords = cell.coords + Vector2.One;
-                    dead_cells.Add(dead_north_east);
-                }
+                already_exist = CheckCellsInDirection(cell, Vector2.One, dead_cells);
+                already_exist = CheckCellsInDirection(cell, Vector2.One, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.One, dead_cells);
 
                 //south_east
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX - Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX - Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_south_east = new Cell();
-                    dead_south_east.coords = cell.coords + Vector2.UnitX - Vector2.UnitY;
-                    dead_cells.Add(dead_south_east);
-                }
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, dead_cells);
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitX - Vector2.UnitY, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitX - Vector2.UnitY, dead_cells);
 
                 //south_west
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.One) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.One) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_south_west = new Cell();
-                    dead_south_west.coords = cell.coords - Vector2.One;
-                    dead_cells.Add(dead_south_west);
-                }
+                already_exist = CheckCellsInDirection(cell, -Vector2.One, dead_cells);
+                already_exist = CheckCellsInDirection(cell, -Vector2.One, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, -Vector2.One, dead_cells);
 
                 //north_west
                 already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX + Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX + Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_north_west = new Cell();
-                    dead_north_west.coords = cell.coords - Vector2.UnitX + Vector2.UnitY;
-                    dead_cells.Add(dead_north_west);
-                }
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, dead_cells);
+                already_exist = CheckCellsInDirection(cell, Vector2.UnitY - Vector2.UnitX, alive_cells);
+                if (!already_exist) AddCorrespondingDeadCell(cell, Vector2.UnitY - Vector2.UnitX, dead_cells);
             }
 
         }
+
 
         public void EvaluateNextGenCells(List<Cell> alive_cells, List<Cell> dead_cells)
         {
@@ -168,6 +80,24 @@ namespace GameOfLife
         void SimulateDeadToAlive(List<Cell> alive_cells, List<Cell> dead_cells)
         {
 
+        }
+
+        bool CheckCellsInDirection(Cell cell, Vector2 offset, List<Cell> list_cells)
+        {
+            bool match_found = false;
+
+            foreach (Cell cell_obj in list_cells)
+            {
+                if (cell_obj.coords == cell.coords + offset) match_found = true;
+            }
+
+            return match_found;
+        }
+        void AddCorrespondingDeadCell(Cell cell, Vector2 offset, List<Cell> dead_cells)
+        {
+            Cell d_cell = new Cell();
+            d_cell.coords = cell.coords + offset;
+            dead_cells.Add(d_cell);
         }
     }
 }

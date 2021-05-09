@@ -28,10 +28,6 @@ namespace GameOfLife
             p.dead_cells = new List<Cell>();
 
             p.RecieveInput(Console.ReadLine());
-
-            Console.WriteLine(p.alive_cells.Count);
-            foreach (Cell cell in p.alive_cells) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
-
             p.RunSimulation();
         }
 
@@ -69,22 +65,13 @@ namespace GameOfLife
         void RunSimulation()
         {
             vector_methods.CheckForAdjacentDeadCells(alive_cells, dead_cells);
-            Console.WriteLine("----");
-            Console.WriteLine(dead_cells.Count);
-            foreach (Cell cell in dead_cells) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
 
             vector_methods.EvaluateNextGenCells(alive_cells, dead_cells);
             vector_methods.AssignNextGenCells(alive_cells, dead_cells);
 
-            Console.WriteLine("----Answer-----------------");
             foreach (Cell cell in alive_cells)
             {
-                if (cell.is_alive) Console.WriteLine(cell.coords);
-            }
-            Console.WriteLine("----dead cells count "+ dead_cells.Count);
-            foreach (Cell cell in dead_cells)
-            {
-                if (cell.is_alive) Console.WriteLine(cell.coords);
+                if (cell.is_alive) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
             }
         }
 

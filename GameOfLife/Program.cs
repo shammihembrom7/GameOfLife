@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace GameOfLife
 {
-    class Cell
+    public class Cell
     {
         public bool is_alive;
         public Vector2 coords;
@@ -12,6 +12,8 @@ namespace GameOfLife
 
     class Program
     {
+        CellEvaluations vector_methods;
+
         List<int> current_cell_coords;
         List<Cell> alive_cells;
         List<Cell> dead_cells;
@@ -19,6 +21,8 @@ namespace GameOfLife
         static void Main(string[] args)
         {
             Program p = new Program();
+            p.vector_methods = new CellEvaluations();
+
             p.current_cell_coords = new List<int>();
             p.alive_cells = new List<Cell>();
             p.dead_cells = new List<Cell>();
@@ -28,7 +32,7 @@ namespace GameOfLife
             Console.WriteLine(p.alive_cells.Count);
             foreach (Cell cell in p.alive_cells) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
 
-            p.EvaluteNextGenCells();
+            p.RunSimulation();
         }
 
         void RecieveInput(string text)
@@ -55,168 +59,20 @@ namespace GameOfLife
             }
             else
             {
-                Console.WriteLine("'INCORRECT INPUT' : enter co ordinates of the alive cell in (X, Y) format example '2, 3' and then press ENTER");
+                Console.WriteLine("'INCORRECT INPUT' : enter coordinates of the alive cell in (X, Y) format example '2, 3' and then press ENTER");
             }
             
             current_cell_coords.Clear();
             RecieveInput(Console.ReadLine());
         }
 
-        void EvaluteNextGenCells()
+        void RunSimulation()
         {
-            GetCurrentDeadCells();
-        }
-
-        void GetCurrentDeadCells()
-        {
-            dead_cells.Clear();
-            bool already_exist;
-            foreach(Cell cell in alive_cells)
-            {
-                //north
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_north = new Cell();
-                    dead_north.coords = cell.coords + Vector2.UnitY;
-                    dead_cells.Add(dead_north);
-                }
-
-
-                //east
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_east = new Cell();
-                    dead_east.coords = cell.coords + Vector2.UnitX;
-                    dead_cells.Add(dead_east);
-                }
-
-                //south
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_south = new Cell();
-                    dead_south.coords = cell.coords - Vector2.UnitY;
-                    dead_cells.Add(dead_south);
-                }
-
-
-                //west
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_west = new Cell();
-                    dead_west.coords = cell.coords - Vector2.UnitX;
-                    dead_cells.Add(dead_west);
-                }
-
-
-                //north_east
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.One) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.One) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_north_east = new Cell();
-                    dead_north_east.coords = cell.coords + Vector2.One;
-                    dead_cells.Add(dead_north_east);
-                }
-
-                //south_east
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX - Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords + Vector2.UnitX - Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_south_east = new Cell();
-                    dead_south_east.coords = cell.coords + Vector2.UnitX - Vector2.UnitY;
-                    dead_cells.Add(dead_south_east);
-                }
-
-                //south_west
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.One) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.One) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_south_west = new Cell();
-                    dead_south_west.coords = cell.coords - Vector2.One;
-                    dead_cells.Add(dead_south_west);
-                }
-
-                //north_west
-                already_exist = false;
-                foreach (Cell dead_cell in dead_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX + Vector2.UnitY) already_exist = true;
-                }
-                foreach (Cell dead_cell in alive_cells)
-                {
-                    if (dead_cell.coords == cell.coords - Vector2.UnitX + Vector2.UnitY) already_exist = true;
-                }
-                if (!already_exist)
-                {
-                    Cell dead_north_west = new Cell();
-                    dead_north_west.coords = cell.coords - Vector2.UnitX + Vector2.UnitY;
-                    dead_cells.Add(dead_north_west);
-                }
-            }
-
-
+            vector_methods.CheckForAdjacentDeadCells(alive_cells, dead_cells);
             Console.WriteLine("----");
             Console.WriteLine(dead_cells.Count);
             foreach (Cell cell in dead_cells) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
         }
+
     }
 }

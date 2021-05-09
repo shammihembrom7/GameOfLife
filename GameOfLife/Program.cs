@@ -74,6 +74,7 @@ namespace GameOfLife
             foreach (Cell cell in dead_cells) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
 
             vector_methods.EvaluateNextGenCells(alive_cells, dead_cells);
+            vector_methods.AssignNextGenCells(alive_cells, dead_cells);
 
             Console.WriteLine("----Answer-----------------");
             foreach (Cell cell in alive_cells)

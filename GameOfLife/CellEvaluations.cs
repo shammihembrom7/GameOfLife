@@ -31,6 +31,26 @@ namespace GameOfLife
             SimulateAliveToDead(alive_cells, dead_cells);
             SimulateDeadToAlive(alive_cells, dead_cells);
         }
+        public void AssignNextGenCells(List<Cell> alive_cells, List<Cell> dead_cells)
+        {
+            for (int i=alive_cells.Count-1; i >= 0; i--)
+            {
+                if (!alive_cells[i].is_alive)
+                {
+                    dead_cells.Add(alive_cells[i]);
+                    alive_cells.RemoveAt(i);
+                }
+            }
+
+            for (int i = dead_cells.Count-1; i >= 0; i--)
+            {
+                if (dead_cells[i].is_alive)
+                {
+                    alive_cells.Add(dead_cells[i]);
+                    dead_cells.RemoveAt(i);
+                }
+            }
+        }
 
         void SimulateAliveToDead(List<Cell> alive_cells, List<Cell> dead_cells)
         {

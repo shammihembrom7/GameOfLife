@@ -24,6 +24,9 @@ namespace GameOfLife
 
             p.RecieveInput(Console.ReadLine());
             p.RunSimulation();
+
+            Console.WriteLine("\npress any key to exit application...");
+            Console.ReadKey();
         }
 
         void RunSimulation()

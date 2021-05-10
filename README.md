@@ -3,7 +3,11 @@
 - Check source code in folder 'GameOfLife'.
 - Run application by downloading 'application' folder and running 'GameOfLife.exe'.
 
+Checkout a simulation of this program
+![](game_of_life.gif)
 
+game link : https://shammi-hembrom.itch.io/game-of-life
+game source : https://github.com/shammihembrom7/game_of_life_unity
 
 Problem 2: Game of Life (solution)
 

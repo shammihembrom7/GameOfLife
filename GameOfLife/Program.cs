@@ -4,15 +4,9 @@ using System.Numerics;
 
 namespace GameOfLife
 {
-    public class Cell
-    {
-        public bool is_alive;
-        public Vector2 coords;
-    }
-
     class Program
     {
-        CellEvaluations vector_methods;
+        CellEvaluations cell_evaluation_methods;
 
         List<int> current_cell_coords;
         List<Cell> alive_cells;
@@ -21,14 +15,26 @@ namespace GameOfLife
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.vector_methods = new CellEvaluations();
+            p.cell_evaluation_methods = new CellEvaluations();
 
             p.current_cell_coords = new List<int>();
             p.alive_cells = new List<Cell>();
             p.dead_cells = new List<Cell>();
 
+
             p.RecieveInput(Console.ReadLine());
             p.RunSimulation();
+        }
+
+        void RunSimulation()
+        {
+            cell_evaluation_methods.EvaluateNextGenCells(alive_cells, dead_cells);
+            cell_evaluation_methods.AssignNextGenCells(alive_cells, dead_cells);
+
+            foreach (Cell cell in alive_cells)
+            {
+                if (cell.is_alive) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
+            }
         }
 
         void RecieveInput(string text)
@@ -46,33 +52,15 @@ namespace GameOfLife
 
             if (current_cell_coords.Count == 2)
             {
-                Cell cell = new Cell();
-                cell.is_alive = true;
-                cell.coords.X = current_cell_coords[0];
-                cell.coords.Y = current_cell_coords[1];
-
-                alive_cells.Add(cell);
+                cell_evaluation_methods.AddCorrespondingAliveCell(new Vector2(current_cell_coords[0], current_cell_coords[1]), alive_cells);
             }
             else
             {
                 Console.WriteLine("'INCORRECT INPUT' : enter coordinates of the alive cell in (X, Y) format example '2, 3' and then press ENTER");
             }
-            
+
             current_cell_coords.Clear();
             RecieveInput(Console.ReadLine());
-        }
-
-        void RunSimulation()
-        {
-            vector_methods.CheckForAdjacentDeadCells(alive_cells, dead_cells);
-
-            vector_methods.EvaluateNextGenCells(alive_cells, dead_cells);
-            vector_methods.AssignNextGenCells(alive_cells, dead_cells);
-
-            foreach (Cell cell in alive_cells)
-            {
-                if (cell.is_alive) Console.WriteLine(cell.coords.X + ", " + cell.coords.Y);
-            }
         }
 
     }

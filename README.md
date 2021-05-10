@@ -1,12 +1,12 @@
 # GameOfLife
 
 - Check source code in folder 'GameOfLife'.
-- Run application by downloading 'application' folder and running 'GameOfLife.exe'.
-
-Checkout a simulation of this program
+- Run console application by downloading 'application' folder and running 'GameOfLife.exe'.
+<br/><br/>
+Checkout a simulation of this program<br/><br/>
 ![](game_of_life.gif)
 
-game link : https://shammi-hembrom.itch.io/game-of-life
+game link : https://shammi-hembrom.itch.io/game-of-life<br/>
 game source : https://github.com/shammihembrom7/game_of_life_unity
 
 Problem 2: Game of Life (solution)

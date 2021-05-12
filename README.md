@@ -1,5 +1,14 @@
 # GameOfLife
 
+- Check source code in folder 'GameOfLife'.
+- Run console application by downloading 'application' folder and running 'GameOfLife.exe'.
+<br/><br/>
+Checkout a simulation of this program<br/><br/>
+![](game_of_life.gif)
+
+game link : https://shammi-hembrom.itch.io/game-of-life<br/>
+game source : https://github.com/shammihembrom7/game_of_life_unity
+
 Problem 2: Game of Life (solution)
 
 The universe of the Game of Life is an infinite two-dimensional orthogonal grid of square cells, each of which is in one of two possible states, live or dead. Every cell interacts with its eight neighbours, which are the cells that are directly horizontally, vertically, or diagonally adjacent. At each step in time, the following transitions occur:

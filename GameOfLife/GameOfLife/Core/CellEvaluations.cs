@@ -15,8 +15,8 @@ namespace GameOfLife
         public class CellEvaluations
         {
 
-            Simulation.Utils simulation_utils = new Simulation.Utils();
-            CellFinder.Utils cellfind_utils = new CellFinder.Utils();
+            Utils.Simulation simulation_utils = new Utils.Simulation();
+            Utils.CellFinder cellfind_utils = new Utils.CellFinder();
 
             public void EvaluateNextGenCells(List<Cell> alive_cells, List<Cell> dead_cells)
             {

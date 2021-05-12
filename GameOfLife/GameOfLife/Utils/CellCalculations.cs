@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace GameOfLife.CellFinder
+namespace GameOfLife.Utils
 {
-    public class Utils
+    public class CellFinder
     {
         Vector2[] direction_offset_list = { Vector2.UnitY, Vector2.UnitX, -Vector2.UnitY, -Vector2.UnitX, Vector2.One, (Vector2.UnitX - Vector2.UnitY), (-Vector2.One), (Vector2.UnitY - Vector2.UnitX) };
         // Directions in order (north, east, south, west, north_east, south_east, south_west, north_west)

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace GameOfLife.Simulation
+namespace GameOfLife.Utils
 {
-    public class Utils
+    public class Simulation
     {
         public void SimulateAliveToDead(List<Cell> alive_cells, List<Cell> dead_cells)
         {

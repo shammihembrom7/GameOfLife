@@ -4,16 +4,32 @@ using System.Numerics;
 
 namespace GameOfLife.Utils
 {
-    public class CellFinder
+    public class CellPreparation:IPerform
     {
         Vector2[] direction_offset_list = { Vector2.UnitY, Vector2.UnitX, -Vector2.UnitY, -Vector2.UnitX, Vector2.One, (Vector2.UnitX - Vector2.UnitY), (-Vector2.One), (Vector2.UnitY - Vector2.UnitX) };
         // Directions in order (north, east, south, west, north_east, south_east, south_west, north_west)
 
         Core.CellCreations cell_creation_methods = new Core.CellCreations();
 
+        List<Cell> alive_cells;
+        List<Cell> dead_cells;
+
+        public CellPreparation(List<Cell> a_cells, List<Cell> d_cells)
+        {
+            alive_cells = a_cells;
+            dead_cells = d_cells;
+        }
+
+        public void Perform()
+        {
+            CheckForAdjacentDeadCells();
+        }
 
 
-        public void CheckForAdjacentDeadCells(List<Cell> alive_cells, List<Cell> dead_cells)
+
+
+
+        private void CheckForAdjacentDeadCells()
         {
             dead_cells.Clear();
 
@@ -31,8 +47,7 @@ namespace GameOfLife.Utils
             }
         }
 
-
-        public bool CheckCellsInDirection(Cell cell, Vector2 offset, List<Cell> list_cells)
+        private bool CheckCellsInDirection(Cell cell, Vector2 offset, List<Cell> list_cells)
         {
             bool match_found = false;
 

@@ -4,11 +4,15 @@ using System.Numerics;
 
 using GameOfLife;
 using GameOfLife.Core;
+using GameOfLife.Utils;
 
 class Program
 {
     CellEvaluations cell_evaluation_methods;
     CellCreations cell_creation_methods;
+
+    Simulation utils_simulation;
+    CellPreparation utils_cell_preparation;
 
     List<int> current_cell_coords;
     List<Cell> alive_cells;
@@ -19,12 +23,16 @@ class Program
     static void Main(string[] args)
     {
         Program p = new Program();
-        p.cell_evaluation_methods = new CellEvaluations();
-        p.cell_creation_methods = new CellCreations();
 
         p.current_cell_coords = new List<int>();
         p.alive_cells = new List<Cell>();
         p.dead_cells = new List<Cell>();
+
+        p.cell_evaluation_methods = new CellEvaluations(p.alive_cells, p.dead_cells);
+        p.cell_creation_methods = new CellCreations();
+
+        p.utils_simulation = new Simulation(p.alive_cells, p.dead_cells);
+        p.utils_cell_preparation = new CellPreparation(p.alive_cells, p.dead_cells);
 
 
         p.RecieveInput(Console.ReadLine());
@@ -39,8 +47,9 @@ class Program
 
     void RunSimulation()
     {
-        cell_evaluation_methods.EvaluateNextGenCells(alive_cells, dead_cells);
-        cell_evaluation_methods.AssignNextGenCells(alive_cells, dead_cells);
+        utils_cell_preparation.Perform();
+        utils_simulation.Perform();
+        cell_evaluation_methods.Perform();
 
         foreach (Cell cell in alive_cells)
         {

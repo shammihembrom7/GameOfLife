@@ -4,9 +4,24 @@ using System.Numerics;
 
 namespace GameOfLife.Utils
 {
-    public class Simulation
+    public class Simulation:IPerform
     {
-        public void SimulateAliveToDead(List<Cell> alive_cells, List<Cell> dead_cells)
+        List<Cell> alive_cells;
+        List<Cell> dead_cells;
+
+        public Simulation(List<Cell> a_cells, List<Cell> d_cells)
+        {
+            alive_cells = a_cells;
+            dead_cells = d_cells;
+        }
+
+        public void Perform()
+        {
+            SimulateAliveToDead();
+            SimulateDeadToAlive();
+        }
+
+        private void SimulateAliveToDead()
         {
             for (int i = 0; i < alive_cells.Count; i++)
             {
@@ -25,7 +40,7 @@ namespace GameOfLife.Utils
         }
 
 
-        public void SimulateDeadToAlive(List<Cell> alive_cells, List<Cell> dead_cells)
+        private void SimulateDeadToAlive()
         {
             foreach (Cell d_cell in dead_cells)
             {

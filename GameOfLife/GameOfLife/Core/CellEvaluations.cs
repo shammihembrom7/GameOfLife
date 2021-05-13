@@ -12,21 +12,25 @@ namespace GameOfLife
 
     namespace Core
     {
-        public class CellEvaluations
+        public class CellEvaluations:IPerform
         {
+            private List<Cell> alive_cells;
+            private List<Cell> dead_cells;
 
-            Utils.Simulation simulation_utils = new Utils.Simulation();
-            Utils.CellFinder cellfind_utils = new Utils.CellFinder();
-
-            public void EvaluateNextGenCells(List<Cell> alive_cells, List<Cell> dead_cells)
+            public CellEvaluations(List<Cell> a_cells, List<Cell> d_cells)
             {
-                cellfind_utils.CheckForAdjacentDeadCells(alive_cells, dead_cells);
-
-                simulation_utils.SimulateAliveToDead(alive_cells, dead_cells);
-                simulation_utils.SimulateDeadToAlive(alive_cells, dead_cells);
+                alive_cells = a_cells;
+                dead_cells = d_cells;
             }
 
-            public void AssignNextGenCells(List<Cell> alive_cells, List<Cell> dead_cells)
+            public void Perform()
+            {
+                AssignNextGenCells();
+            }
+
+
+
+            private void AssignNextGenCells()
             {
                 for (int i = alive_cells.Count - 1; i >= 0; i--)
                 {
